@@ -15,3 +15,11 @@
 
 - name: starting dhcp
   service: name=dhcpd state=started enabled=yes
+
+- name: configuring firewall services
+  firewalld: service={{item}} permanent=true state=enabled
+  with_items:
+    - dhcp
+
+- name: reload the firewall
+  command: firewall-cmd --reload
