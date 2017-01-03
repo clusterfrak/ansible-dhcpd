@@ -1,0 +1,27 @@
+# Specify the domain name that DHCP will service
+option domain-name "{{domain}}";
+
+# Specify name server's hostname or IP address
+option domain-name-servers {{domain_ns}};
+
+# Default lease time
+default-lease-time 600;
+
+# Max lease time
+max-lease-time 7200;
+
+# Validate that this DHCP server is a valid server for the domain
+authoritative;
+
+# specify network address and subnet mask
+subnet {{ansible_default_ipv4.network}} netmask {{ansible_default_ipv4.netmask}} {
+    
+    # specify the range of lease IP address
+    range dynamic-bootp {{range_start}} {{range_end}};
+    
+    # specify broadcast address
+    option broadcast-address {{ansible_default_ipv4.broadcast}};
+
+    # specify default gateway
+    option routers {{ansible_default_ipv4.gateway}};
+}

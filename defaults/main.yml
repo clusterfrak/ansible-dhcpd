@@ -1,0 +1,5 @@
+---
+domain: "{{ lookup('env','DOMAIN') | default('mydomain.local',true) }}"
+domain_ns: "{{ lookup('env','NAME_SERVERS') | default('ns1.mydomain.local',true) }}"
+range_start: "{{ lookup('env','DHCP_START_IP') | default('192.168.0.32',true) }}"
+range_end: "{{ lookup('env','DHCP_END_IP') | default('192.168.0.63',true) }}"

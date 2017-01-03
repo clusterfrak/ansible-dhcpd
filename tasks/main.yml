@@ -1,0 +1,17 @@
+---
+- name: adding epel repo
+  package: name={{item}} state=installed
+  with_items:
+    - epel-release
+
+- name: adding dhcp packages
+  package: name={{item}} state=installed
+  with_items:
+    - dhcp
+
+- name: configure dhcp
+  template: src=dhcpd.conf.j2 dest=/etc/dhcp/dhcpd.conf
+  notify: restart dhcp
+
+- name: starting dhcp
+  service: name=dhcpd state=started enabled=yes
